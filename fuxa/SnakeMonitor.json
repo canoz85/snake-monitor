@@ -1,0 +1,286 @@
+{
+  "version": "1.01",
+  "name": "SnakeMonitor",
+  "devices": {
+    "d_snake_opcua": {
+      "id": "d_snake_opcua",
+      "name": "SnakeOPCUA",
+      "type": "OPCUA",
+      "enabled": true,
+      "polling": 1000,
+      "property": {
+        "address": "opc.tcp://localhost:4840/snake-monitor/",
+        "options": {
+          "securityMode": "1",
+          "securityPolicy": "None",
+          "username": null,
+          "password": null
+        }
+      },
+      "tags": {
+        "t_snake_score": {
+          "id": "t_snake_score",
+          "name": "snake.score",
+          "type": "Int64",
+          "address": "ns=2;s=snake.score",
+          "daq": {
+            "enabled": false,
+            "changed": false,
+            "interval": 60
+          }
+        },
+        "t_snake_alive": {
+          "id": "t_snake_alive",
+          "name": "snake.alive",
+          "type": "Boolean",
+          "address": "ns=2;s=snake.alive",
+          "daq": {
+            "enabled": false,
+            "changed": false,
+            "interval": 60
+          }
+        },
+        "t_dqn_epsilon": {
+          "id": "t_dqn_epsilon",
+          "name": "dqn.epsilon",
+          "type": "Double",
+          "address": "ns=2;s=dqn.epsilon",
+          "daq": {
+            "enabled": false,
+            "changed": false,
+            "interval": 60
+          }
+        },
+        "t_dqn_reward": {
+          "id": "t_dqn_reward",
+          "name": "dqn.reward_last",
+          "type": "Double",
+          "address": "ns=2;s=dqn.reward_last",
+          "daq": {
+            "enabled": false,
+            "changed": false,
+            "interval": 60
+          }
+        },
+        "t_llm_mode": {
+          "id": "t_llm_mode",
+          "name": "llm.mode",
+          "type": "String",
+          "address": "ns=2;s=llm.mode",
+          "daq": {
+            "enabled": false,
+            "changed": false,
+            "interval": 60
+          }
+        },
+        "t_sys_latency": {
+          "id": "t_sys_latency",
+          "name": "system.latency_ms",
+          "type": "Int64",
+          "address": "ns=2;s=system.latency_ms",
+          "daq": {
+            "enabled": false,
+            "changed": false,
+            "interval": 60
+          }
+        }
+      }
+    }
+  },
+  "hmi": {
+    "layout": {
+      "autoresize": false,
+      "start": "v_snake_dashboard",
+      "navigation": {
+        "mode": "item.navsmode-over",
+        "type": "item.navtype-icons-text-block",
+        "bkcolor": "#2d2d4e",
+        "fgcolor": "#ffffff",
+        "items": [
+          {
+            "text": "Dashboard",
+            "link": "v_snake_dashboard",
+            "view": "v_snake_dashboard",
+            "icon": "mdi-monitor-dashboard",
+            "image": "",
+            "permission": 0,
+            "permissionRoles": {
+              "show": [],
+              "enabled": []
+            }
+          }
+        ]
+      },
+      "header": {
+        "title": "Snake Monitor",
+        "bkcolor": "#1a1a2e",
+        "fgcolor": "#ffffff",
+        "fontSize": 13
+      },
+      "showdev": false,
+      "hidenavigation": false
+    },
+    "views": [
+      {
+        "id": "v_snake_dashboard",
+        "name": "Dashboard",
+        "type": "svg",
+        "profile": {
+          "width": 1024,
+          "height": 768,
+          "bkcolor": "#1a1a2e",
+          "margin": 0
+        },
+        "items": {
+          "VAL_t_snake_score": {
+            "id": "VAL_t_snake_score",
+            "type": "svg-ext-value",
+            "name": "snake.score",
+            "property": {
+              "events": [],
+              "actions": [],
+              "variable": "t_snake_score",
+              "variableSrc": "d_snake_opcua",
+              "variableId": "d_snake_opcua^~^t_snake_score",
+              "alarmId": "",
+              "alarmSrc": "",
+              "alarm": "",
+              "alarmColor": "",
+              "ranges": []
+            },
+            "label": "Value"
+          },
+          "VAL_t_snake_alive": {
+            "id": "VAL_t_snake_alive",
+            "type": "svg-ext-value",
+            "name": "snake.alive",
+            "property": {
+              "events": [],
+              "actions": [],
+              "variable": "t_snake_alive",
+              "variableSrc": "d_snake_opcua",
+              "variableId": "d_snake_opcua^~^t_snake_alive",
+              "alarmId": "",
+              "alarmSrc": "",
+              "alarm": "",
+              "alarmColor": "",
+              "ranges": []
+            },
+            "label": "Value"
+          },
+          "VAL_t_dqn_epsilon": {
+            "id": "VAL_t_dqn_epsilon",
+            "type": "svg-ext-value",
+            "name": "dqn.epsilon",
+            "property": {
+              "events": [],
+              "actions": [],
+              "variable": "t_dqn_epsilon",
+              "variableSrc": "d_snake_opcua",
+              "variableId": "d_snake_opcua^~^t_dqn_epsilon",
+              "alarmId": "",
+              "alarmSrc": "",
+              "alarm": "",
+              "alarmColor": "",
+              "ranges": []
+            },
+            "label": "Value"
+          },
+          "VAL_t_dqn_reward": {
+            "id": "VAL_t_dqn_reward",
+            "type": "svg-ext-value",
+            "name": "dqn.reward_last",
+            "property": {
+              "events": [],
+              "actions": [],
+              "variable": "t_dqn_reward",
+              "variableSrc": "d_snake_opcua",
+              "variableId": "d_snake_opcua^~^t_dqn_reward",
+              "alarmId": "",
+              "alarmSrc": "",
+              "alarm": "",
+              "alarmColor": "",
+              "ranges": []
+            },
+            "label": "Value"
+          },
+          "VAL_t_llm_mode": {
+            "id": "VAL_t_llm_mode",
+            "type": "svg-ext-value",
+            "name": "llm.mode",
+            "property": {
+              "events": [],
+              "actions": [],
+              "variable": "t_llm_mode",
+              "variableSrc": "d_snake_opcua",
+              "variableId": "d_snake_opcua^~^t_llm_mode",
+              "alarmId": "",
+              "alarmSrc": "",
+              "alarm": "",
+              "alarmColor": "",
+              "ranges": []
+            },
+            "label": "Value"
+          },
+          "VAL_t_sys_latency": {
+            "id": "VAL_t_sys_latency",
+            "type": "svg-ext-value",
+            "name": "system.latency_ms",
+            "property": {
+              "events": [],
+              "actions": [],
+              "variable": "t_sys_latency",
+              "variableSrc": "d_snake_opcua",
+              "variableId": "d_snake_opcua^~^t_sys_latency",
+              "alarmId": "",
+              "alarmSrc": "",
+              "alarm": "",
+              "alarmColor": "",
+              "ranges": []
+            },
+            "label": "Value"
+          },
+          "HXC_score_chart": {
+            "id": "HXC_score_chart",
+            "type": "svg-ext-html_chart",
+            "name": "Score History",
+            "property": {
+              "id": "chart-score-01",
+              "type": "realtime1",
+              "options": {
+                "title": "snake.score over time",
+                "fontFamily": "sans-serif",
+                "legendFontSize": 12,
+                "colorBackground": "rgba(0,0,0,0)",
+                "legendBackground": "rgba(0,0,0,0)",
+                "titleHeight": 18,
+                "axisLabelFontSize": 12,
+                "labelsDivWidth": 0,
+                "axisLineColor": "rgba(200,200,200,1)",
+                "axisLabelColor": "rgba(200,200,200,1)",
+                "legendMode": "always",
+                "series": [
+                  {
+                    "id": "d_snake_opcua^~^t_snake_score",
+                    "color": "#00e676",
+                    "name": "Score",
+                    "label": "Score"
+                  }
+                ],
+                "width": 960,
+                "height": 200,
+                "decimalsPrecision": 0,
+                "realtime": 120,
+                "dateFormat": "DD_MM_YYYY",
+                "timeFormat": "HH_mm_ss"
+              }
+            },
+            "label": "HtmlChart"
+          }
+        },
+        "variables": {},
+        "svgcontent": "<svg width=\"1024\" height=\"768\" xmlns=\"http://www.w3.org/2000/svg\">\n <rect width=\"1024\" height=\"768\" fill=\"#1a1a2e\"/>\n <text font-size=\"26\" font-family=\"sans-serif\" fill=\"#ffffff\" text-anchor=\"middle\" xml:space=\"preserve\" x=\"512\" y=\"50\">Snake Monitor</text>\n <text font-size=\"12\" font-family=\"sans-serif\" fill=\"#555577\" text-anchor=\"middle\" xml:space=\"preserve\" x=\"512\" y=\"66\">OPC UA  ·  gateway port 4840</text>\n <rect x=\"12\" y=\"72\" width=\"314\" height=\"200\" rx=\"8\" fill=\"#2d2d4e\" stroke=\"#3d3d6e\"/>\n <text font-size=\"13\" font-family=\"sans-serif\" fill=\"#aaaaaa\" text-anchor=\"middle\" xml:space=\"preserve\" x=\"169\" y=\"114\">snake.score</text>\n <g id=\"VAL_t_snake_score\" type=\"svg-ext-value\" fill=\"#00e676\" stroke=\"#00e676\" font-size=\"36\" stroke-width=\"0\" font-family=\"sans-serif\" text-anchor=\"middle\">\n  <text stroke-width=\"0\" id=\"VAL_inner_t_snake_score\" fill=\"#00e676\" stroke=\"#00e676\" font-size=\"36\" font-family=\"sans-serif\" text-anchor=\"middle\" xml:space=\"preserve\" x=\"169\" y=\"190\">##.##</text>\n </g>\n <rect x=\"340\" y=\"72\" width=\"314\" height=\"200\" rx=\"8\" fill=\"#2d2d4e\" stroke=\"#3d3d6e\"/>\n <text font-size=\"13\" font-family=\"sans-serif\" fill=\"#aaaaaa\" text-anchor=\"middle\" xml:space=\"preserve\" x=\"497\" y=\"114\">snake.alive</text>\n <g id=\"VAL_t_snake_alive\" type=\"svg-ext-value\" fill=\"#69f0ae\" stroke=\"#69f0ae\" font-size=\"36\" stroke-width=\"0\" font-family=\"sans-serif\" text-anchor=\"middle\">\n  <text stroke-width=\"0\" id=\"VAL_inner_t_snake_alive\" fill=\"#69f0ae\" stroke=\"#69f0ae\" font-size=\"36\" font-family=\"sans-serif\" text-anchor=\"middle\" xml:space=\"preserve\" x=\"497\" y=\"190\">##.##</text>\n </g>\n <rect x=\"668\" y=\"72\" width=\"314\" height=\"200\" rx=\"8\" fill=\"#2d2d4e\" stroke=\"#3d3d6e\"/>\n <text font-size=\"13\" font-family=\"sans-serif\" fill=\"#aaaaaa\" text-anchor=\"middle\" xml:space=\"preserve\" x=\"825\" y=\"114\">dqn.epsilon</text>\n <g id=\"VAL_t_dqn_epsilon\" type=\"svg-ext-value\" fill=\"#ffab40\" stroke=\"#ffab40\" font-size=\"36\" stroke-width=\"0\" font-family=\"sans-serif\" text-anchor=\"middle\">\n  <text stroke-width=\"0\" id=\"VAL_inner_t_dqn_epsilon\" fill=\"#ffab40\" stroke=\"#ffab40\" font-size=\"36\" font-family=\"sans-serif\" text-anchor=\"middle\" xml:space=\"preserve\" x=\"825\" y=\"190\">##.##</text>\n </g>\n <rect x=\"12\" y=\"284\" width=\"314\" height=\"200\" rx=\"8\" fill=\"#2d2d4e\" stroke=\"#3d3d6e\"/>\n <text font-size=\"13\" font-family=\"sans-serif\" fill=\"#aaaaaa\" text-anchor=\"middle\" xml:space=\"preserve\" x=\"169\" y=\"326\">dqn.reward_last</text>\n <g id=\"VAL_t_dqn_reward\" type=\"svg-ext-value\" fill=\"#ff6e40\" stroke=\"#ff6e40\" font-size=\"36\" stroke-width=\"0\" font-family=\"sans-serif\" text-anchor=\"middle\">\n  <text stroke-width=\"0\" id=\"VAL_inner_t_dqn_reward\" fill=\"#ff6e40\" stroke=\"#ff6e40\" font-size=\"36\" font-family=\"sans-serif\" text-anchor=\"middle\" xml:space=\"preserve\" x=\"169\" y=\"402\">##.##</text>\n </g>\n <rect x=\"340\" y=\"284\" width=\"314\" height=\"200\" rx=\"8\" fill=\"#2d2d4e\" stroke=\"#3d3d6e\"/>\n <text font-size=\"13\" font-family=\"sans-serif\" fill=\"#aaaaaa\" text-anchor=\"middle\" xml:space=\"preserve\" x=\"497\" y=\"326\">llm.mode</text>\n <g id=\"VAL_t_llm_mode\" type=\"svg-ext-value\" fill=\"#40c4ff\" stroke=\"#40c4ff\" font-size=\"36\" stroke-width=\"0\" font-family=\"sans-serif\" text-anchor=\"middle\">\n  <text stroke-width=\"0\" id=\"VAL_inner_t_llm_mode\" fill=\"#40c4ff\" stroke=\"#40c4ff\" font-size=\"36\" font-family=\"sans-serif\" text-anchor=\"middle\" xml:space=\"preserve\" x=\"497\" y=\"402\">##.##</text>\n </g>\n <rect x=\"668\" y=\"284\" width=\"314\" height=\"200\" rx=\"8\" fill=\"#2d2d4e\" stroke=\"#3d3d6e\"/>\n <text font-size=\"13\" font-family=\"sans-serif\" fill=\"#aaaaaa\" text-anchor=\"middle\" xml:space=\"preserve\" x=\"825\" y=\"326\">system.latency_ms</text>\n <g id=\"VAL_t_sys_latency\" type=\"svg-ext-value\" fill=\"#ea80fc\" stroke=\"#ea80fc\" font-size=\"36\" stroke-width=\"0\" font-family=\"sans-serif\" text-anchor=\"middle\">\n  <text stroke-width=\"0\" id=\"VAL_inner_t_sys_latency\" fill=\"#ea80fc\" stroke=\"#ea80fc\" font-size=\"36\" font-family=\"sans-serif\" text-anchor=\"middle\" xml:space=\"preserve\" x=\"825\" y=\"402\">##.##</text>\n </g>\n <rect x=\"12\" y=\"497\" width=\"1000\" height=\"256\" rx=\"8\" fill=\"#2d2d4e\" stroke=\"#3d3d6e\"/>\n <text font-size=\"13\" font-family=\"sans-serif\" fill=\"#aaaaaa\" text-anchor=\"middle\" xml:space=\"preserve\" x=\"512\" y=\"515\">snake.score — live history</text>\n <g type=\"svg-ext-html_chart\" id=\"HXC_score_chart\">\n  <rect stroke=\"null\" fill=\"none\" id=\"svg_HXC_score_chart_bg\" stroke-width=\"0\" height=\"224\" width=\"976\" y=\"521\" x=\"24\"/>\n  <foreignObject id=\"H-HXC_score_chart\" width=\"976\" height=\"224\" y=\"521\" x=\"24\">\n   <DIV style=\"width: 100%; height: 100%;\" id=\"D-HXC_score_chart\"></DIV>\n  </foreignObject>\n </g>\n</svg>"
+      }
+    ]
+  }
+}
